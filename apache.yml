@@ -1,0 +1,21 @@
+---
+- name: Install Apache and deploy index.html on RedHat/CentOS
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Install Apache (httpd)
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start and enable Apache
+      systemd:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Copy index.html to the web server
+      copy:
+        src: ./index.html
+        dest: /var/www/html/index.html
+        mode: '0644'

@@ -1,0 +1,16 @@
+---
+- hosts: databaseservers
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Install packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - curl
+        - finger
+        - wget
+        - apache2  # Use 'apache2' for Ubuntu instead of 'httpd'
+        - ntp
+
